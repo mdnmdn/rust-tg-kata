@@ -2,7 +2,8 @@ use itertools::sorted;
 
 
 fn get_max_with_limit(items: &[u32], limit: u32) -> u32 {
-    items.iter().cloned().filter(|i| i < &limit).max().unwrap_or(0)
+    // *items.iter().filter(|&&i| i < limit).max().unwrap_or(&0)
+    items.iter().copied().filter(|i| i < &limit).max().unwrap_or(0)
 }
 
 //fn get_max_with_limit(items: &[u32], limit: u32) -> u32 {
