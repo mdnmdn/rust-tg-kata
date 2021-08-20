@@ -29,8 +29,8 @@ pub fn calculate_best_deal(amount_owned: u32, keyboard_prices: &[u32], usb_price
         return get_max_with_limit(keyboard_prices, amount_owned);
     }
 
-    let keyboard_prices: Vec<u32> = sorted(keyboard_prices.iter()).cloned().collect();
-    let usb_prices: Vec<u32> = sorted(usb_prices.iter()).cloned().collect();
+    let keyboard_prices: Vec<u32> = sorted(keyboard_prices.iter()).copied().collect();
+    let usb_prices: Vec<u32> = sorted(usb_prices.iter()).copied().collect();
 
     let mut actual_max = 0;
     let mut usb_pos = usb_prices.len() - 1;
