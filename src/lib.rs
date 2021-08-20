@@ -2,7 +2,7 @@ use itertools::sorted;
 
 
 fn get_max_with_limit(items: &[u32], limit: u32) -> u32 {
-    // *items.iter().filter(|&&i| i < limit).max().unwrap_or(&0)
+    //alt:  *items.iter().filter(|&&i| i < limit).max().unwrap_or(&0)
     items.iter().copied().filter(|i| i < &limit).max().unwrap_or(0)
 }
 
@@ -35,7 +35,8 @@ pub fn calculate_best_deal(amount_owned: u32, keyboard_prices: &[u32], usb_price
     let mut actual_max = 0;
     let mut usb_pos = usb_prices.len() - 1;
 
-    'external_loop: for keyb_price in keyboard_prices.into_iter() {
+    //'external_loop: for keyb_price in keyboard_prices.into_iter() {
+    'external_loop: for keyb_price in keyboard_prices {
         loop {
             let usb_price = usb_prices[usb_pos];
 
