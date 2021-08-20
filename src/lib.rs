@@ -1,16 +1,20 @@
 use itertools::sorted;
 
+
 fn get_max_with_limit(items: &[u32], limit: u32) -> u32 {
-    items.iter().fold(0, |max, val: &u32| -> u32 {
-        let val = *val;
-        if (val > max) && (val < limit) {
-            val
-        } else {
-            max
-        }
-    })
+    items.iter().cloned().filter(|i| i < &limit).max().unwrap_or(0)
 }
 
+//fn get_max_with_limit(items: &[u32], limit: u32) -> u32 {
+//    items.iter().fold(0, |max, val: &u32| -> u32 {
+//        let val = *val;
+//        if (val > max) && (val < limit) {
+//            val
+//        } else {
+//            max
+//        }
+//    })
+//}
 
 // https://www.hackerrank.com/challenges/electronics-shop/problem
 pub fn calculate_best_deal(amount_owned: u32, keyboard_prices: &[u32], usb_prices: &[u32]) -> u32 {
