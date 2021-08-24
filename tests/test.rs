@@ -8,7 +8,7 @@ mod tests {
         let usb_prices = [5, 2, 8];
         let max_amount = 10;
 
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
+        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap();
         assert_eq!(9, total);
     }
 
@@ -18,7 +18,7 @@ mod tests {
         let usb_prices = [9, 5, 2, 3, 1];
         let max_amount = 10;
 
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
+        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap();
         assert_eq!(10, total);
     }
 
@@ -28,8 +28,8 @@ mod tests {
         let usb_prices = [];
         let max_amount = 10;
 
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
-        assert_eq!(8, total);
+        let err = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap_err();
+        assert_eq!("Missing usbs", err);
     }
 
     #[test]
@@ -38,18 +38,8 @@ mod tests {
         let usb_prices = [5, 2, 8];
         let max_amount = 10;
 
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
-        assert_eq!(8, total);
-    }
-
-    #[test]
-    fn no_keyboard_usb() {
-        let keyboard_prices = [];
-        let usb_prices = [];
-        let max_amount = 10;
-
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
-        assert_eq!(0, total);
+        let err = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap_err();
+        assert_eq!("Missing keyboards", err);
     }
 
     #[test]
@@ -58,7 +48,7 @@ mod tests {
         let usb_prices = [5, 2, 8];
         let max_amount = 0;
 
-        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
-        assert_eq!(0, total);
+        let err = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap_err();
+        assert_eq!("No combination found".to_string(), err);
     }
 }
