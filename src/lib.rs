@@ -1,23 +1,33 @@
-use itertools::sorted;
-
-
+pub mod config;
 // https://www.hackerrank.com/challenges/electronics-shop/problem
 pub fn calculate_best_deal(amount_owned: u32, keyboard_prices: &[u32], usb_prices: &[u32]) -> u32 {
+    let mut usb_prices: Vec<u32> = usb_prices
+        .iter()
+        .filter(|&&i| i < amount_owned)
+        .copied()
+        .collect();
+    usb_prices.sort_unstable();
 
-    let usb_prices: Vec<u32> = sorted(usb_prices.iter().filter(|&&i| i < amount_owned)).copied().collect();
-
+    keyboard_prices.is_empty();
     // handle no keyboards
     if keyboard_prices.is_empty() {
         return usb_prices.into_iter().max().unwrap_or(0);
     }
 
-    let keyboard_prices: Vec<u32> = sorted(keyboard_prices.iter().filter(|&&i| i < amount_owned)).copied().collect();
+    let mut keyboard_prices: Vec<u32> = keyboard_prices
+        .iter()
+        .filter(|&&i| i < amount_owned)
+        .copied()
+        .collect();
+    keyboard_prices.sort_unstable();
 
     // handle no usb
     if usb_prices.is_empty() {
         return keyboard_prices.into_iter().max().unwrap_or(0);
     }
 
+    dbg!(&keyboard_prices);
+    dbg!(&usb_prices);
 
     let mut actual_max = 0;
     let mut usb_pos = usb_prices.len() - 1;
@@ -28,7 +38,8 @@ pub fn calculate_best_deal(amount_owned: u32, keyboard_prices: &[u32], usb_price
             let usb_price = usb_prices[usb_pos];
 
             let combination_cost = usb_price + keyb_price;
-
+            dbg!(&keyb_price);
+            dbg!(&usb_price);
             if combination_cost > amount_owned {
                 break;
             }

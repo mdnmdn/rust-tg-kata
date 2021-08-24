@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use kata01_electronic_shop::*;
+    use electronic_shop::*;
 
     #[test]
     fn test_simple_deal() {
@@ -10,6 +10,16 @@ mod tests {
 
         let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
         assert_eq!(9, total);
+    }
+
+    #[test]
+    fn test_simple_deal_reverse_order() {
+        let keyboard_prices = [8, 3, 2];
+        let usb_prices = [9, 5, 2, 3, 1];
+        let max_amount = 10;
+
+        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices);
+        assert_eq!(10, total);
     }
 
     #[test]
