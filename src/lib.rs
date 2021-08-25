@@ -38,27 +38,33 @@ pub fn calculate_best_deal(
 
     let mut actual_max = 0;
 
+    println!("k: {:?}", keyboard_prices);
+    println!("u: {:?}", usb_prices);
+
     if !keyboard_prices.is_empty() && !usb_prices.is_empty() {
         let mut usb_pos = usb_prices.len() - 1;
 
         'external_loop: for keyb_price in keyboard_prices {
+            
             loop {
                 let usb_price = usb_prices[usb_pos];
-
+                
                 let combination_cost = usb_price + keyb_price;
-                //dbg!(&keyb_price);
-                //dbg!(&usb_price);
-                if combination_cost > amount_owned {
-                    break;
-                }
-                if combination_cost > actual_max {
+                
+                //println!("---\nk: {}, u: {}, max: {}, cost: {}", keyb_price, usb_price, actual_max, combination_cost);
+              
+                if combination_cost <= amount_owned {
+                  if actual_max < combination_cost {
                     actual_max = combination_cost;
-                } else {
-                    if usb_pos == 0 {
-                        break 'external_loop;
-                    }
-                    usb_pos -= 1;
+                    break;
+                  }
                 }
+
+                if usb_pos == 0 {
+                    break 'external_loop;
+                }
+                usb_pos -= 1;
+                
             }
         }
     }
