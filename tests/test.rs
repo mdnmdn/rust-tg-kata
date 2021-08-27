@@ -13,6 +13,18 @@ mod tests {
     }
 
     #[test]
+    fn test_simple_deal_more_case() {
+        let keyboard_prices = [53, 51];
+        let usb_prices = [8, 4];
+        //let keyboard_prices = [8, 4];
+        //let usb_prices = [53, 51];
+        let max_amount = 60;
+
+        let total = calculate_best_deal(max_amount, &keyboard_prices, &usb_prices).unwrap();
+        assert_eq!(59, total);
+    }
+
+    #[test]
     fn test_simple_deal_reverse_order() {
         let keyboard_prices = [8, 3, 2];
         let usb_prices = [9, 5, 2, 3, 1];
